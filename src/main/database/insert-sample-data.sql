@@ -1,0 +1,16 @@
+INSERT INTO `tasks` VALUES (1,'go for a walk',1);
+INSERT INTO `tasks` VALUES (2,'watch TV',1);
+INSERT INTO `tasks` VALUES (3,'get a life',2);
+INSERT INTO `tasks` VALUES (4,'buy new PC',3);
+INSERT INTO `tasks` VALUES (5,'follow strangers aroud',2);
+INSERT INTO `tasks` VALUES (6,'go to a library',2);
+INSERT INTO `tasks` VALUES (7,'get a job',NULL);
+INSERT INTO `tasks` VALUES (8,'visit Paris',1);
+INSERT INTO `tasks` VALUES (9,'become a superhero',2);
+INSERT INTO `tasks` VALUES (10,'smile',3);
+INSERT INTO `tasks` VALUES (11,'play some gwent',3);
+INSERT INTO `tasks` VALUES (12,'roam around',NULL);
+INSERT INTO `tasks` VALUES (13,'buy some food',NULL);
+INSERT INTO `tasks` VALUES (14,'delete facebook account',3);
+INSERT INTO `tasks` VALUES (15,'learn javascript',1);
+COMMIT;

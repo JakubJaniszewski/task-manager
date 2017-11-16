@@ -1,0 +1,8 @@
+BEGIN TRANSACTION;
+CREATE TABLE IF NOT EXISTS `tasks` (
+	`id`	INTEGER,
+	`name`	TEXT,
+	`student_id`	INTEGER,
+	PRIMARY KEY(`id`)
+);
+COMMIT;
