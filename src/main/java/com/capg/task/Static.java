@@ -21,7 +21,7 @@ public class Static implements HttpHandler {
         System.out.println("looking for: " + uri.getPath());
         String path = "." + uri.getPath();
 
-        // get file from resources folder, see: https://www.mkyong.com/java/java-read-a-file-from-resources-folder/
+        // get file from resources folder
         ClassLoader classLoader = getClass().getClassLoader();
         URL fileURL = classLoader.getResource(path);
 
@@ -39,14 +39,14 @@ public class Static implements HttpHandler {
         String response = "404 (Not Found)\n";
         httpExchange.sendResponseHeaders(404, response.length());
         OutputStream os = httpExchange.getResponseBody();
-        os.write(response.toString().getBytes());
+        os.write(response.getBytes());
         os.close();
     }
 
     private void sendFile(HttpExchange httpExchange, URL fileURL) throws IOException {
         // get the file
         File file = new File(fileURL.getFile());
-        // we need to find out the mime type of the file, see: https://en.wikipedia.org/wiki/Media_type
+        // we need to find out the mime type of the file
         MimeTypeResolver resolver = new MimeTypeResolver(file);
         String mime = resolver.getMimeType();
 

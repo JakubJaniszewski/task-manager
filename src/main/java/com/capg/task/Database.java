@@ -1,6 +1,7 @@
 package com.capg.task;
 
 import java.sql.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,8 @@ public class Database {
     public List<Task> getAllTasks() throws SQLException {
         List<Task> tasks = new ArrayList<>();
 
-        String sqlQuery = "SELECT * FROM tasks;";
+        // Takes all data from tasks table, sorting it by id
+        String sqlQuery = "SELECT * FROM tasks ORDER BY id;";
 
         stmt = connection.prepareStatement(sqlQuery);
         ResultSet rs = stmt.executeQuery();
@@ -25,6 +27,8 @@ public class Database {
             Integer id = rs.getInt("id");
             String name = rs.getString("name");
             Integer taskboxId = rs.getInt("taskbox_id");
+
+            // Add new Task created from the database to tasks list
             tasks.add(new Task(id, name, taskboxId));
         }
 
@@ -32,8 +36,10 @@ public class Database {
     }
 
     public Task getTask(Integer id) {
+
         Task task = null;
-        String sqlQuery = "SELECT * FROM tasks WHERE id = ? ORDER BY id;";
+        // Gets specific task from the database based on given id
+        String sqlQuery = "SELECT * FROM tasks WHERE id = ?;";
 
         try {
             stmt = connection.prepareStatement(sqlQuery);
@@ -67,6 +73,7 @@ public class Database {
         String name = task.getName();
         Integer taskboxId = task.getTaskboxId();
 
+        // Updates task which was moved to another taskbox
         String sqlQuery = "UPDATE tasks "
                         + "SET name = ?, taskbox_id = ? "
                         + "WHERE id = ?;";

@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import java.io.*;
 import java.sql.SQLException;
+
 import java.util.List;
 
 public class TaskManager implements HttpHandler {
@@ -24,7 +25,7 @@ public class TaskManager implements HttpHandler {
         String response = "";
         String method = httpExchange.getRequestMethod();
 
-        // Send a form if it wasn't submitted yet.
+        // Send a view to the browser
         if(method.equals("GET")) {
             try {
                 List<Task> tasks = database.getAllTasks();
@@ -34,7 +35,7 @@ public class TaskManager implements HttpHandler {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        } // If the form was submitted, retrieve it's content.
+        } // If the task was moved to another taskbox, update database
         else if(method.equals("POST")) {
             InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
             BufferedReader br = new BufferedReader(isr);
@@ -42,6 +43,7 @@ public class TaskManager implements HttpHandler {
             executeFormData(formData);
         }
 
+        // Send response to the browser
         httpExchange.sendResponseHeaders(200, response.getBytes().length);
         OutputStream os = httpExchange.getResponseBody();
         os.write(response.getBytes());
@@ -49,10 +51,12 @@ public class TaskManager implements HttpHandler {
     }
 
     private void executeFormData(String formData) throws UnsupportedEncodingException {
+        // Parse formData
         JSONObject object = new JSONObject(formData);
         Integer taskId = object.getInt("buttonId");
         String taskboxName = object.getString("taskboxName");
 
+        // Update task in the database
         Task task = database.getTask(taskId);
         task.setTaskboxId(taskboxName);
         database.updateTask(task);

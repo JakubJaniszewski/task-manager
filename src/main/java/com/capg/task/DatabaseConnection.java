@@ -8,6 +8,8 @@ public class DatabaseConnection {
 
     private static Connection connection = null;
 
+    // Database connection singleton, makes sure that you can't
+    // initialize 2 Connections
     static Connection getConnection() throws SQLException {
         if (connection == null) {
             connection = DriverManager.getConnection("jdbc:sqlite:src/main/database/database");

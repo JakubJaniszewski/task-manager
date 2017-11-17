@@ -24,7 +24,7 @@ function drag_drop(event) {
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/", true);
 
-    var myObj = { "buttonId":buttonId, "taskboxName": taskboxName}
+    var myObj = { "buttonId":buttonId, "taskboxName": taskboxName};
     xhttp.send(JSON.stringify(myObj));
     droppedIn = true;
 }
