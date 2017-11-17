@@ -2,8 +2,11 @@ package com.capg.task;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+
 import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
+
+import org.json.JSONObject;
 
 import java.io.*;
 import java.sql.SQLException;
@@ -37,15 +40,6 @@ public class TaskManager implements HttpHandler {
             BufferedReader br = new BufferedReader(isr);
             String formData = br.readLine();
             executeFormData(formData);
-
-            try {
-                List<Task> tasks = database.getAllTasks();
-                JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/guestbook.twig");
-                JtwigModel model = JtwigModel.newModel().with("tasks", tasks);
-                response = template.render(model);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
 
         httpExchange.sendResponseHeaders(200, response.getBytes().length);
@@ -55,12 +49,12 @@ public class TaskManager implements HttpHandler {
     }
 
     private void executeFormData(String formData) throws UnsupportedEncodingException {
-        String[] pair = formData.split("&");
-        Integer taskId = Integer.valueOf(pair[0]);
-        String taskOwner = pair[1];
+        JSONObject object = new JSONObject(formData);
+        Integer taskId = object.getInt("buttonId");
+        String taskboxName = object.getString("taskboxName");
 
         Task task = database.getTask(taskId);
-        task.setOwnersId(taskOwner);
+        task.setTaskboxId(taskboxName);
         database.updateTask(task);
     }
 }
