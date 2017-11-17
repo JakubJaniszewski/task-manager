@@ -4,7 +4,7 @@ function _(id) {
 
 var droppedIn = false;
 var buttonId;
-var taskboxId;
+var taskboxName;
 
 function drag_start(event) {
     event.dataTransfer.dropEffect = "move";
@@ -19,10 +19,12 @@ function drag_drop(event) {
 
     var elem_id = event.dataTransfer.getData("text");
     event.target.appendChild( _(elem_id) );
-    taskboxId = event.target.getAttribute('id');
+    taskboxName = event.target.getAttribute('id');
 
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/", true);
-    xhttp.send(buttonId + '&' + taskboxId);
+
+    var myObj = { "buttonId":buttonId, "taskboxName": taskboxName}
+    xhttp.send(JSON.stringify(myObj));
     droppedIn = true;
 }

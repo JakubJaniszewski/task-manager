@@ -4,12 +4,12 @@ public class Task {
 
     private Integer id;
     private String name;
-    private Integer ownersId;
+    private Integer taskboxId;
 
-    public Task(Integer id, String name, Integer ownersId) {
+    public Task(Integer id, String name, Integer taskboxId) {
         this.id = id;
         this.name = name;
-        this.ownersId = ownersId;
+        this.taskboxId = taskboxId;
     }
 
     public Integer getId() {
@@ -20,19 +20,19 @@ public class Task {
         return name;
     }
 
-    public Integer getOwnersId() {
-        return ownersId;
+    public Integer getTaskboxId() {
+        return taskboxId;
     }
 
-    public void setOwnersId(String taskOwner) {
-        if(taskOwner.equals("taskspool")) {
-            this.ownersId = 0;
-        } else if(taskOwner.equals("first-user-taskbox")) {
-            this.ownersId = 1;
-        } else if(taskOwner.equals("second-user-taskbox")) {
-            this.ownersId = 2;
-        } else if(taskOwner.equals("third-user-taskbox")) {
-            this.ownersId = 3;
+    public void setTaskboxId(String taskboxName) {
+        if(taskboxName.equals("taskspool")) {
+            this.taskboxId = 0;
+        } else if(taskboxName.equals("first-user-taskbox")) {
+            this.taskboxId = 1;
+        } else if(taskboxName.equals("second-user-taskbox")) {
+            this.taskboxId = 2;
+        } else if(taskboxName.equals("third-user-taskbox")) {
+            this.taskboxId = 3;
         }
     }
 }

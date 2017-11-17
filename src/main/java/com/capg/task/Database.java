@@ -24,8 +24,8 @@ public class Database {
         while(rs.next()) {
             Integer id = rs.getInt("id");
             String name = rs.getString("name");
-            Integer usersId = rs.getInt("owners_id");
-            tasks.add(new Task(id, name, usersId));
+            Integer taskboxId = rs.getInt("taskbox_id");
+            tasks.add(new Task(id, name, taskboxId));
         }
 
         return tasks;
@@ -57,24 +57,24 @@ public class Database {
     private Task createTaskFromDB(ResultSet result) throws SQLException {
         Integer id = result.getInt("id");
         String name = result.getString("name");
-        Integer ownersId =result.getInt("owners_id");
+        Integer taskboxId =result.getInt("taskbox_id");
 
-        return new Task(id, name, ownersId);
+        return new Task(id, name, taskboxId);
     }
 
     public void updateTask(Task task) {
         Integer id = task.getId();
         String name = task.getName();
-        Integer ownersId = task.getOwnersId();
+        Integer taskboxId = task.getTaskboxId();
 
         String sqlQuery = "UPDATE tasks "
-                        + "SET name = ?, owners_id = ? "
+                        + "SET name = ?, taskbox_id = ? "
                         + "WHERE id = ?;";
 
         try {
             stmt = connection.prepareStatement(sqlQuery);
             stmt.setString(1, name);
-            stmt.setInt(2, ownersId);
+            stmt.setInt(2, taskboxId);
             stmt.setInt(3, id);
 
             stmt.executeUpdate();

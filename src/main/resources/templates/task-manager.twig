@@ -31,7 +31,7 @@
                 <div class="task-box" id="taskspool" ondrop="drag_drop(event)" ondragover="return false">
                     <h2>Tasks Pool</h2>
                     {% for task in tasks %}
-                        {% if task.getOwnersId() == 0 %}
+                        {% if task.getTaskboxId() == 0 %}
                             <button id="{{ task.getId() }}" draggable="true" ondragstart="drag_start(event)"> {{ task.getName() }}</button>
                         {% endif %}
                     {% endfor %}
@@ -39,7 +39,7 @@
                 <div class="task-box" id="second-user-taskbox" ondrop="drag_drop(event)" ondragover="return false">
                     <h2>User 2</h2>
                     {% for task in tasks %}
-                        {% if task.getOwnersId() == 2 %}
+                        {% if task.getTaskboxId() == 2 %}
                             <button id="{{ task.getId() }}" draggable="true" ondragstart="drag_start(event)"> {{ task.getName() }}</button>
                         {% endif %}
                     {% endfor %}
@@ -48,7 +48,7 @@
                 <div class="task-box" id="first-user-taskbox" ondrop="drag_drop(event)" ondragover="return false">
                     <h2>User 1</h2>
                     {% for task in tasks %}
-                        {% if task.getOwnersId() == 1 %}
+                        {% if task.getTaskboxId() == 1 %}
                             <button id="{{ task.getId() }}" draggable="true" ondragstart="drag_start(event)"> {{ task.getName() }}</button>
                         {% endif %}
                     {% endfor %}
@@ -57,7 +57,7 @@
                 <div class="task-box" id="third-user-taskbox" ondrop="drag_drop(event)" ondragover="return false">
                     <h2>User 3</h2>
                     {% for task in tasks %}
-                        {% if task.getOwnersId() == 3 %}
+                        {% if task.getTaskboxId() == 3 %}
                             <button id="{{ task.getId() }}" draggable="true" ondragstart="drag_start(event)"> {{ task.getName() }}</button>
                         {% endif %}
                     {% endfor %}
