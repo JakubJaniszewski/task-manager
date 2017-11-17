@@ -31,6 +31,37 @@ public class Database {
         return tasks;
     }
 
+    public Task getTask(Integer id) {
+        Task task = null;
+        String sqlQuery = "SELECT * FROM tasks WHERE id = ? ORDER BY id;";
+
+        try {
+            stmt = connection.prepareStatement(sqlQuery);
+            stmt.setInt(1, id);
+
+            ResultSet result = stmt.executeQuery();
+
+            if (result.next()) {
+                task = createTaskFromDB(result);
+            }
+
+            result.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(this.getClass().getName() + " class caused a problem!");
+        }
+
+        return task;
+    }
+
+    private Task createTaskFromDB(ResultSet result) throws SQLException {
+        Integer id = result.getInt("id");
+        String name = result.getString("name");
+        Integer ownersId =result.getInt("owners_id");
+
+        return new Task(id, name, ownersId);
+    }
+
     public void updateTask(Task task) {
         Integer id = task.getId();
         String name = task.getName();

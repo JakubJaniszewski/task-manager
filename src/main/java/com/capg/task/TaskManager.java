@@ -36,10 +36,9 @@ public class TaskManager implements HttpHandler {
             InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
             BufferedReader br = new BufferedReader(isr);
             String formData = br.readLine();
+            executeFormData(formData);
 
-            Task task = parseFormData(formData);
             try {
-                database.updateTask(task);
                 List<Task> tasks = database.getAllTasks();
                 JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/guestbook.twig");
                 JtwigModel model = JtwigModel.newModel().with("tasks", tasks);
@@ -55,7 +54,13 @@ public class TaskManager implements HttpHandler {
         os.close();
     }
 
-    private static Task parseFormData(String formData) throws UnsupportedEncodingException {
-        return new Task(1, formData, 2);
+    private void executeFormData(String formData) throws UnsupportedEncodingException {
+        String[] pair = formData.split("&");
+        Integer taskId = Integer.valueOf(pair[0]);
+        String taskOwner = pair[1];
+
+        Task task = database.getTask(taskId);
+        task.setOwnersId(taskOwner);
+        database.updateTask(task);
     }
 }
