@@ -31,7 +31,7 @@
                 <div class="task-box" id="taskspool" ondrop="drag_drop(event)" ondragover="return false">
                     <h2>Tasks Pool</h2>
                     {% for task in tasks %}
-                        {% if task.getOwnersId() == null %}
+                        {% if task.getOwnersId() == 0 %}
                             <button id="{{ task.getId() }}" draggable="true" ondragstart="drag_start(event)"> {{ task.getName() }}</button>
                         {% endif %}
                     {% endfor %}
