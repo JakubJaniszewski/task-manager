@@ -136,3 +136,27 @@ body {
 .github:hover {
     background-color:  var(--github-color);
 }
+
+@media (max-width: 768px) {
+
+    .container {
+        flex-flow: column nowrap;
+    }
+
+    #taskspool {
+        margin: 20px 25%;
+    }
+
+    .task-box {
+        width: 50%;
+    }
+
+    #first-user-taskbox {
+        bottom: 0px;
+    }
+
+    #second-user-taskbox {
+        bottom: 0px;
+    }
+
+}
